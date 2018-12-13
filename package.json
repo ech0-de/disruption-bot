@@ -1,0 +1,25 @@
+{
+  "name": "disruption-bot",
+  "version": "1.0.0",
+  "description": "Twitter bot to post current public transport disruption information.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0x530302/disruption-bot.git"
+  },
+  "author": "dome <dome@ech0.de> (http://ech0.de)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/0x530302/disruption-bot/issues"
+  },
+  "homepage": "https://github.com/0x530302/disruption-bot#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "twit": "^2.2.11",
+    "xml2js": "^0.4.19"
+  }
+}
