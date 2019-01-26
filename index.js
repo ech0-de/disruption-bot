@@ -24,6 +24,8 @@ const T = new Twit({
 });
 
 (async () => {
+    console.log('starting disruption-bot', new Date());
+
     while (true) {
         try {
             const xml = await axios.get(config.xml_feed);
@@ -45,12 +47,16 @@ const T = new Twit({
                             continue;
                         }
 
-                        console.log(new Date(date * 1000), title, text);
-                        const tweet = await T.post('statuses/update', { status: `${title}\n${text}` });
-                        activeTweets[id] = tweet.id_str;
+                        try {
+                            console.log(new Date(date * 1000), title, text);
+                            const tweet = await T.post('statuses/update', { status: `${title}\n${text}` });
+                            activeTweets[id] = tweet.id_str;
 
-                        ts = date;
-                        fs.writeFileSync('ts.txt', date);
+                            ts = date;
+                            fs.writeFileSync('ts.txt', date);
+                        } catch(e) {
+                            console.error('Twit-Error:', e.statusCode, e.code, e.message);
+                        }
                     }
 
                     await Promise.all(
@@ -62,7 +68,9 @@ const T = new Twit({
 
                                 return T.post('statuses/update', {
                                     in_reply_to_status_id: id,
-                                    status: `${config.twitter.handle} Störungsmeldung wieder aufgehoben.`
+                                    status: `${config.twitter.handle} Meldung wieder aufgehoben.`
+                                }).catch(e => {
+                                    console.error('Twit-Error:', e.statusCode, e.code, e.message);
                                 });
                             })
                     );
