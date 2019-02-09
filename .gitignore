@@ -61,4 +61,5 @@ typings/
 .next
 
 config.js
+active.txt
 ts.txt
